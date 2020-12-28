@@ -44,12 +44,12 @@ double operar(double a, double b, char op) {
  * 1+2*2-4-3+4 -> 1, +2*2, -4, -3, +4
  */
 // Voy a aplicar el metodo para dividir strings por un delimitador del eqsolver
-vector<double> splitBySign(string str) {
-    vector<double> vct;
+vector<string> splitBySign(string str) {
+    vector<string> vct;
     unsigned int relStart = 0;
     for (unsigned int i = 0; i < str.size(); i++) {
-        if(str[i] == '+' || str[i] == '-') {
-
+        if( (str[i] == '+' || str[i] == '-') && relStart+i != 0) {
+            
         }
     }
     return vct;
