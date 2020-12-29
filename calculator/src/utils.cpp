@@ -1,5 +1,8 @@
 #include "../include/utils.h"
 
+/*
+ * 1+2*2+3-4+5 -> [1, +2*2, +3, -4, +5]
+ */
 vector<string> utils::splitBySign(string str) {
     vector<string> strVct;
     unsigned int relStart = 0;
@@ -11,7 +14,7 @@ vector<string> utils::splitBySign(string str) {
         }
     }
     strVct.push_back(getSubstring(str, relStart, str.size()));
-    return vct;
+    return strVct;
 }
 
 // Func to do substring having an interval

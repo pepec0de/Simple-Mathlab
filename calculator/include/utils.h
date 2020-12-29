@@ -10,7 +10,7 @@ class utils {
 public:
     vector<string> splitBySign(string str);
     string getSubstring(string str, unsigned int start, unsigned int end);
-    string replaceAll(string regex, string replacement);
+    string replaceAll(string str, char regex, char replacement);
 protected:
 private:
 };

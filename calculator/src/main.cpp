@@ -1,9 +1,11 @@
 #include <iostream>
 #include <vector>
+#include "../include/utils.h"
 
 using namespace std;
 
-double ans;
+utils utils;
+double acumulador;
 
 // Funcion para comprobar si un char es un simbolo
 bool isSign(char c) {
@@ -16,9 +18,7 @@ bool isOperator(char c) {
 }
 
 // Funcion para comprobar si un char es una int
-bool isNumber(char c) {
-    string str = "";
-    str[0] = c;
+bool isNumber(string str) {
     try {
         stof(str);
     } catch (exception& e) {
@@ -39,42 +39,24 @@ double operar(double a, double b, char op) {
     return 0;
 }
 
-// Funcion para dividir la cadena por signos
-/*
- * 1+2*2-4-3+4 -> 1, +2*2, -4, -3, +4
- */
-// Voy a aplicar el metodo para dividir strings por un delimitador del eqsolver
-vector<string> splitBySign(string str) {
-    vector<string> vct;
-    unsigned int relStart = 0;
-    for (unsigned int i = 0; i < str.size(); i++) {
-        if( (str[i] == '+' || str[i] == '-') && relStart+i != 0) {
-            
-        }
-    }
-    return vct;
+double calc(string op) {
+    double result = 0;
+    return result;
 }
 
 double solve(string cmdStr) {
-    string currNum = "";
-    bool numFound = false;
-    for (unsigned int i = 0; i < cmdStr.size(); i++) {
-        // Linear
-        char c = cmdStr[i];
-        if (isSign(c) && currNum == "") {
-            numFound = true;
-            currNum += c;
-        } else if (isNumber(c) && numFound) {
-            currNum += c;
-        } else if (numFound && isSign(c)){
-            numFound = false;
-        }
-
-        if (!numFound && currNum != "") {
-            ans += stof(currNum);
+    vector<string> strSigns = utils.splitBySign(cmdStr);
+    for (unsigned int i = 0; i < strSigns.size(); i++) {
+        string num = strSigns[i];
+        cout << "Procesamos el elemento: \"" << num << "\"\n";
+        if (isNumber(num)) {
+            acumulador += stof(num);
+        } else {
+            cout << num << " : no es un numero\n";
+            acumulador += calc(num);
         }
     }
-    return ans;
+    return acumulador;
 }
 
 int main() {
@@ -86,12 +68,12 @@ int main() {
     cout << ">> ";
     getline(cin, cmdStr);
 
-    ans = 0;
+    acumulador = 0;
 
     while (cmdStr != "q") {
-        ans = 0;
-        ans = solve(cmdStr);
-        cout << "\n\tans = " << ans << endl; 
+        acumulador = 0;
+        acumulador = solve(cmdStr);
+        cout << "\n\tans = " << acumulador << endl; 
         cout << ">> ";
         getline(cin, cmdStr);
     }
