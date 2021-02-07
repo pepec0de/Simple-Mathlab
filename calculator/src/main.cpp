@@ -41,13 +41,20 @@ double operar(double a, double b, char op) {
 
 double calc(string op) {
     double result = 0;
+    // Caso base -> si no hay parentesis operar normal
+    if (utils.checkBrackets(op)) {
+
+    } else {
+        double num1, num2;
+
+    }
     return result;
 }
 
 double solve(string cmdStr) {
-    vector<string> strSigns = utils.splitBySign(cmdStr);
+    vector<string> vctOp = utils.splitBySign(cmdStr);
     for (unsigned int i = 0; i < strSigns.size(); i++) {
-        string num = strSigns[i];
+        string num = vctOp[i];
         cout << "Procesamos el elemento: \"" << num << "\"\n";
         if (isNumber(num)) {
             acumulador += stof(num);
@@ -59,23 +66,27 @@ double solve(string cmdStr) {
     return acumulador;
 }
 
+void input(string &cmdStr) {
+    cout << ">> ";
+    getline(cin, cmdStr);
+    cmdStr = utils.replaceAll(cmdStr, " ", "");
+    cout << "Result = " << cmdStr << endl;
+}
+
 int main() {
     cout << "Calculator 1.0\n";
     cout << "Type q for exit the program\n";
 
     // String para almacenar la operacion
     string cmdStr;
-    cout << ">> ";
-    getline(cin, cmdStr);
-
+    input(cmdStr);
+    
     acumulador = 0;
-
     while (cmdStr != "q") {
         acumulador = 0;
         acumulador = solve(cmdStr);
         cout << "\n\tans = " << acumulador << endl; 
-        cout << ">> ";
-        getline(cin, cmdStr);
+        input(cmdStr);
     }
     return 0;
 }

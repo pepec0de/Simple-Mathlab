@@ -17,6 +17,13 @@ vector<string> utils::splitBySign(string str) {
     return strVct;
 }
 
+bool checkBrackets(string str) {
+    for (int i = 0; i < str.size(); i++) {
+        if (str[i] == '(' || str[i] == ')') return true;
+    }
+    return false;
+}
+
 // Func to do substring having an interval
 string utils::getSubstring(string str, unsigned int start, unsigned int end) {
     string result = "";
@@ -33,4 +40,17 @@ string utils::replaceAll(string str, char regex, char replacement) {
         if (str[i] == regex) str[i] = replacement;
     }
     return result;
+}
+
+string utils::replaceAll(string str, string regex, string replacement) {
+    for (unsigned int i = 0; i < str.size(); i++) {
+        // We check if the first char of regex matches with current char
+        if (str[i] == regex[0]) {
+            if (getSubstring(str, i, regex.size()+i) == regex) {
+                str = getSubstring(str, 0, i) + replacement 
+                    + getSubstring(str, regex.size()+i, str.size());
+            }
+        }
+    }
+    return str;
 }
