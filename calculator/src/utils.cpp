@@ -18,7 +18,7 @@ vector<string> utils::splitBySign(string str) {
 }
 
 bool checkBrackets(string str) {
-    for (int i = 0; i < str.size(); i++) {
+    for (unsigned int i = 0; i < str.size(); i++) {
         if (str[i] == '(' || str[i] == ')') return true;
     }
     return false;

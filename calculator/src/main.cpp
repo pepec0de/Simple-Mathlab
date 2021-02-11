@@ -2,6 +2,8 @@
 #include <vector>
 #include "../include/utils.h"
 
+#define DEBUG true
+
 using namespace std;
 
 utils utils;
@@ -42,24 +44,28 @@ double operar(double a, double b, char op) {
 double calc(string op) {
     double result = 0;
     // Caso base -> si no hay parentesis operar normal
-    if (utils.checkBrackets(op)) {
+    /*if (utils.checkBrackets(op)) {
 
     } else {
         double num1, num2;
 
-    }
+    }*/
     return result;
 }
 
 double solve(string cmdStr) {
     vector<string> vctOp = utils.splitBySign(cmdStr);
-    for (unsigned int i = 0; i < strSigns.size(); i++) {
+    for (unsigned int i = 0; i < vctOp.size(); i++) {
         string num = vctOp[i];
-        cout << "Procesamos el elemento: \"" << num << "\"\n";
+        if (DEBUG) cout << "Procesamos el elemento: \"" << num << "\"\n";
         if (isNumber(num)) {
             acumulador += stof(num);
         } else {
-            cout << num << " : no es un numero\n";
+            /* Para ordenar operaciones dentro de () necesito
+             * un arbol binario
+             * TODO: aprender arboles binarios
+             */
+            if (DEBUG) cout << num << " : no es un numero\n";
             acumulador += calc(num);
         }
     }
@@ -70,7 +76,7 @@ void input(string &cmdStr) {
     cout << ">> ";
     getline(cin, cmdStr);
     cmdStr = utils.replaceAll(cmdStr, " ", "");
-    cout << "Result = " << cmdStr << endl;
+    if (DEBUG) cout << "Result = " << cmdStr << endl;
 }
 
 int main() {
