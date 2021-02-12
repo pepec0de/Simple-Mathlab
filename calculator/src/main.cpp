@@ -1,33 +1,13 @@
-#include <iostream>
-#include <vector>
 #include "../include/utils.h"
+#include "../include/stringutils.h"
 
 #define DEBUG true
 
 using namespace std;
 
+stringutils strUtils;
 utils utils;
 double acumulador;
-
-// Funcion para comprobar si un char es un simbolo
-bool isSign(char c) {
-    return c == '+' || c == '-';
-}
-
-// Funcion para comprobar si un char es un operador
-bool isOperator(char c) {
-    return c == '*' || c == '/';
-}
-
-// Funcion para comprobar si un char es una int
-bool isNumber(string str) {
-    try {
-        stof(str);
-    } catch (exception& e) {
-        return false;
-    }
-    return true;
-}
 
 double operar(double a, double b, char op) {
     switch(op) {

@@ -100,3 +100,9 @@ string stringutils::tostring(float value) {
     strs << value;
     return strs.str();
 }
+
+string stringutils::tostring(char value) {
+    string str;
+    str.push_back(value);
+    return str;
+}

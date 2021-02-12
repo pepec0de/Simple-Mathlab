@@ -25,7 +25,7 @@ class stringutils {
         string replaceAll(string str, string regex, string replacement);
 
         string tostring(float value);
-
+        string tostring(char value);
     protected:
         
     private:
