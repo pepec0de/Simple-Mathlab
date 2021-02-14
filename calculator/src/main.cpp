@@ -23,22 +23,25 @@ double operar(double a, double b, char op) {
 
 double calc(string op) {
     double result = 0;
-    // Caso base -> si no hay parentesis operar normal
-    /*if (utils.checkBrackets(op)) {
+    if (utils.checkBrackets(op)) {
 
     } else {
         double num1, num2;
-
-    }*/
+        int cont = 0;
+        num1 = utils.getNumberFromOp(op, cont);
+        cont++;
+        num2 = utils.getNumberFromOp(op, cont);
+        result = num1*num2;
+    }
     return result;
 }
 
 double solve(string cmdStr) {
-    vector<string> vctOp = utils.splitBySign(cmdStr);
+    vector<string> vctOp = strUtils.split(cmdStr, {'+', '-'}, true);
     for (unsigned int i = 0; i < vctOp.size(); i++) {
         string num = vctOp[i];
         if (DEBUG) cout << "Procesamos el elemento: \"" << num << "\"\n";
-        if (isNumber(num)) {
+        if (utils.isNumber(num)) {
             acumulador += stof(num);
         } else {
             /* Para ordenar operaciones dentro de () necesito
@@ -55,7 +58,7 @@ double solve(string cmdStr) {
 void input(string &cmdStr) {
     cout << ">> ";
     getline(cin, cmdStr);
-    cmdStr = utils.replaceAll(cmdStr, " ", "");
+    cmdStr = strUtils.replaceAll(cmdStr, " ", "");
     if (DEBUG) cout << "Result = " << cmdStr << endl;
 }
 

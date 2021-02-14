@@ -25,6 +25,17 @@ bool utils::isNumber(string str) {
     return true;
 }
 
+bool utils::isNumber(char c) {
+    string str;
+    str.push_back(c);
+    try {
+        stof(str);
+    } catch (exception& e) {
+        return false;
+    }
+    return true;
+}
+
 bool utils::checkBrackets(string str) {
     for (unsigned int i = 0; i < str.size(); i++) {
         if (str[i] == '(' || str[i] == ')') return true;
@@ -32,17 +43,19 @@ bool utils::checkBrackets(string str) {
     return false;
 }
 
-double getNumberFromOp(string str, int idx) {
-    vector<double> vct;
+double utils::getNumberFromOp(string str, int idx) {
+    string number;
     int currIdx = 0;
     unsigned int relEnd = 0;
     for (unsigned int i = 0; i < str.size(); i++) {
-        if (isNumber(strUtils.tostring(str[i]))) {
+        if (isNumber(str[i])) {
             if (currIdx == idx) {
-                
+                if (isSign(str[i-1])) number.push_back(str[i-1]);
+                number.push_back(str[i]);
             }
-            currIdx++;
+            // If the number has more digits we dont cont it
+            if (!isNumber(strUtils.tostring(str[i+1]))) currIdx++;
         }
     }
-    return vct;
+    return stof(number);
 }

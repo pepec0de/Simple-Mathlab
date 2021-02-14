@@ -11,8 +11,9 @@ public:
     bool isSign(char c);
     bool isOperator(char c);
     bool isNumber(string str);
+    bool isNumber(char c);
     bool checkBrackets(string str);
-    vector<double> getNumbersFromOp(string str);
+    double getNumberFromOp(string op, int idx);
 protected:
 private:
 };

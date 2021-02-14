@@ -22,7 +22,7 @@ vector<string> stringutils::split(string str, char delimiter) {
 /* Example output: split(str, {'+', '-'}, true)
  * "1+2*2+3-4+5" -> [1, +2*2, +3, -4, +5]
  */
-vector<string> stringutils::split(string str, char delimiters[], bool addDelim) {
+vector<string> stringutils::split(string str, char* delimiters, bool addDelim) {
     int delimitersSize = sizeof(delimiters)/sizeof(delimiters[0]);
     vector<string> strVct;
     unsigned int relStart = 0;

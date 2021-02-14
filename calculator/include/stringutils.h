@@ -15,8 +15,8 @@ class stringutils {
          * virtual ~stringutils();
          *
          */
-        vector<string> split(string str, char deliminator);
-        vector<string> split(string str, char delimiters[], bool addDelim);
+        vector<string> split(string str, char delimiter);
+        vector<string> split(string str, char* delimiters, bool addDelim);
 
         string getSubstring(string str, unsigned int start, unsigned int end);
         string getSubstring(string str, int fromEnd);
