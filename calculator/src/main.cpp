@@ -1,11 +1,9 @@
 #include "../include/utils.h"
-#include "../include/stringutils.h"
 
 #define DEBUG true
 
 using namespace std;
 
-stringutils strUtils;
 utils utils;
 double acumulador;
 
@@ -37,7 +35,8 @@ double calc(string op) {
 }
 
 double solve(string cmdStr) {
-    vector<string> vctOp = strUtils.split(cmdStr, {'+', '-'}, true);
+    char delimiters[] = {'+', '-'};
+    vector<string> vctOp = utils.strUtils.split(cmdStr, delimiters, 2, true);
     for (unsigned int i = 0; i < vctOp.size(); i++) {
         string num = vctOp[i];
         if (DEBUG) cout << "Procesamos el elemento: \"" << num << "\"\n";
@@ -58,8 +57,7 @@ double solve(string cmdStr) {
 void input(string &cmdStr) {
     cout << ">> ";
     getline(cin, cmdStr);
-    cmdStr = strUtils.replaceAll(cmdStr, " ", "");
-    if (DEBUG) cout << "Result = " << cmdStr << endl;
+    cmdStr = utils.strUtils.replaceAll(cmdStr, " ", "");
 }
 
 int main() {

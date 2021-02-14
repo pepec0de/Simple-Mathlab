@@ -1,8 +1,6 @@
 #include "../include/utils.h"
 #include "../include/stringutils.h"
 
-stringutils strUtils;
-
 bool utils::isSign(char c) {
     return c == '+' || c == '-';
 }
@@ -14,13 +12,14 @@ bool utils::isOperator(char c) {
             return true;
             break;
     }
+    return false;
 }
 
 bool utils::isNumber(string str) {
-    try {
-        stof(str);
-    } catch (exception& e) {
-        return false;
+    for (unsigned int i = 0; i < str.size(); i++) {
+        if (!(isNumber(str[i]) || isSign(str[i]))) {
+            return false;
+        }
     }
     return true;
 }
@@ -44,18 +43,19 @@ bool utils::checkBrackets(string str) {
 }
 
 double utils::getNumberFromOp(string str, int idx) {
+    cout << "getNumberFromOp : " << str << ", " << idx << endl;
     string number;
     int currIdx = 0;
-    unsigned int relEnd = 0;
     for (unsigned int i = 0; i < str.size(); i++) {
         if (isNumber(str[i])) {
             if (currIdx == idx) {
-                if (isSign(str[i-1])) number.push_back(str[i-1]);
+                if (i < 0) if (isSign(str[i-1])) number.push_back(str[i-1]);
                 number.push_back(str[i]);
             }
             // If the number has more digits we dont cont it
-            if (!isNumber(strUtils.tostring(str[i+1]))) currIdx++;
+            if (!isNumber(strUtils.tostring(str[i+1]))) currIdx++; else break;
         }
     }
+    cout << "getNumberFromOp :: return stof -> " << number << endl;
     return stof(number);
 }

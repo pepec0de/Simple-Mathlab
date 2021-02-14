@@ -4,10 +4,14 @@
 #include <iostream>
 #include <vector>
 
+#include "stringutils.h"
+
 using namespace std;
 
 class utils {
 public:
+    stringutils strUtils;
+
     bool isSign(char c);
     bool isOperator(char c);
     bool isNumber(string str);
