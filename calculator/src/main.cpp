@@ -6,6 +6,7 @@ using namespace std;
 
 utils utils;
 double acumulador;
+char signs[] = {'+', '-'};
 
 double operar(double a, double b, char op) {
     switch(op) {
@@ -25,18 +26,21 @@ double calc(string op) {
 
     } else {
         double num1, num2;
-        int cont = 0;
-        num1 = utils.getNumberFromOp(op, cont);
-        cont++;
-        num2 = utils.getNumberFromOp(op, cont);
-        result = num1*num2;
+        char nextOp;
+        vector<string> vctOp = utils.getOp(op);
+        for (unsigned int i = 0; i < vctOp.size(); i += 3) {
+            num1 = stof(vctOp[i]);
+            // casting string to char
+            nextOp = vctOp[i+1][0];
+            num2 = stof(vctOp[i+2]);
+            result += operar(num1, num2, nextOp);
+        }
     }
     return result;
 }
 
 double solve(string cmdStr) {
-    char delimiters[] = {'+', '-'};
-    vector<string> vctOp = utils.strUtils.split(cmdStr, delimiters, 2, true);
+    vector<string> vctOp = utils.strUtils.split(cmdStr, signs, 2, true);
     for (unsigned int i = 0; i < vctOp.size(); i++) {
         string num = vctOp[i];
         if (DEBUG) cout << "Procesamos el elemento: \"" << num << "\"\n";
@@ -63,7 +67,7 @@ void input(string &cmdStr) {
 int main() {
     cout << "Calculator 1.0\n";
     cout << "Type q for exit the program\n";
-
+    
     // String para almacenar la operacion
     string cmdStr;
     input(cmdStr);

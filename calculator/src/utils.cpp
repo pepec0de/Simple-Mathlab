@@ -16,6 +16,7 @@ bool utils::isOperator(char c) {
 }
 
 bool utils::isNumber(string str) {
+    if (str == "") return false;
     for (unsigned int i = 0; i < str.size(); i++) {
         if (!(isNumber(str[i]) || isSign(str[i]))) {
             return false;
@@ -25,6 +26,7 @@ bool utils::isNumber(string str) {
 }
 
 bool utils::isNumber(char c) {
+    if (c == '.') return true;
     string str;
     str.push_back(c);
     try {
@@ -42,20 +44,35 @@ bool utils::checkBrackets(string str) {
     return false;
 }
 
-double utils::getNumberFromOp(string str, int idx) {
-    cout << "getNumberFromOp : " << str << ", " << idx << endl;
+string utils::getNumberFromOp(string str, int idx) {
+    // DEBUG : cout << "getNumberFromOp : " << str << ", " << idx << endl;
     string number;
     int currIdx = 0;
     for (unsigned int i = 0; i < str.size(); i++) {
         if (isNumber(str[i])) {
             if (currIdx == idx) {
+                // Conditional to add sign
                 if (i < 0) if (isSign(str[i-1])) number.push_back(str[i-1]);
                 number.push_back(str[i]);
             }
-            // If the number has more digits we dont cont it
-            if (!isNumber(strUtils.tostring(str[i+1]))) currIdx++; else break;
+            // If the number has more digits we dont change index
+            if (!isNumber(strUtils.tostring(str[i+1]))) currIdx++;
         }
     }
-    cout << "getNumberFromOp :: return stof -> " << number << endl;
-    return stof(number);
+    // DEBUG : cout << "getNumberFromOp :: return stof -> " << number << endl;
+    return number;
+}
+
+vector<string> utils::getOp(string op) {
+    vector<string> vct;
+    // String must have less numbers than its size. numbers < size()
+    for (unsigned int i = 0; i < op.size(); i++) {
+        string currStr = getNumberFromOp()
+        if (getNumberFromOp(op, i) != "") {
+            vct.push_back()
+        } else {
+            break;
+        }
+    }
+    return vct;
 }
