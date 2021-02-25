@@ -44,35 +44,42 @@ bool utils::checkBrackets(string str) {
     return false;
 }
 
-string utils::getNumberFromOp(string str, int idx) {
-    // DEBUG : cout << "getNumberFromOp : " << str << ", " << idx << endl;
-    string number;
-    int currIdx = 0;
-    for (unsigned int i = 0; i < str.size(); i++) {
-        if (isNumber(str[i])) {
-            if (currIdx == idx) {
-                // Conditional to add sign
-                if (i < 0) if (isSign(str[i-1])) number.push_back(str[i-1]);
-                number.push_back(str[i]);
-            }
-            // If the number has more digits we dont change index
-            if (!isNumber(strUtils.tostring(str[i+1]))) currIdx++;
+string utils::getNextNumber(string op, unsigned int &idx) {
+    string number = "";
+    bool signFound = false;
+    for (unsigned int i = idx; i < op.size(); i++) {
+        if (isSign(op[i])) {
+            number.push_back(op[i]);
+            signFound = true;
+        } else if (isNumber(op[i])) {
+            if (i < 0 && number.size() == 0) if (isSign(op[i-1])) number.push_back(op[i-1]);
+            signFound = true;
+            number.push_back(op[i]);
+        }
+        if (!isNumber(op[i]) && signFound) {
+            idx = i-1;
+            break;
         }
     }
-    // DEBUG : cout << "getNumberFromOp :: return stof -> " << number << endl;
     return number;
 }
 
 vector<string> utils::getOp(string op) {
     vector<string> vct;
-    // String must have less numbers than its size. numbers < size()
+    // String must have less numbers than its size. numbers of nums < .size()
+    int cont = 0; 
+    unsigned int currIdx = 0;
     for (unsigned int i = 0; i < op.size(); i++) {
-        string currStr = getNumberFromOp()
-        if (getNumberFromOp(op, i) != "") {
-            vct.push_back()
-        } else {
-            break;
+        cout << "Call number : " << cont << endl; cont++;
+        string posibleNumb = getNextNumber(op, currIdx);
+        if (posibleNumb != "") vct.push_back(posibleNumb);
+        currIdx++;
+        if (isOperator(op[currIdx])) {
+            string aux; aux.push_back(op[currIdx]);
+            vct.push_back(aux);
         }
+        currIdx++;
+        i = currIdx;
     }
     return vct;
 }

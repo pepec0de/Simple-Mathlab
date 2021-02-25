@@ -28,12 +28,19 @@ double calc(string op) {
         double num1, num2;
         char nextOp;
         vector<string> vctOp = utils.getOp(op);
-        for (unsigned int i = 0; i < vctOp.size(); i += 3) {
+        cout << "Imprimimos vctOp:\n";
+        for (unsigned int i = 0; i < vctOp.size(); i++) {
+            cout << vctOp[i] << endl;
+        }
+        cout << "Tamaño vctOp : " << vctOp.size() << endl;
+        for (unsigned int i = 0; i < vctOp.size(); i++) {
+            cout << "Trabajamos con: " << vctOp[i] << ", " << vctOp[i+1] << ", " << vctOp[i+2] << endl;
             num1 = stof(vctOp[i]);
             // casting string to char
             nextOp = vctOp[i+1][0];
             num2 = stof(vctOp[i+2]);
             result += operar(num1, num2, nextOp);
+            if ((i+2)+1 == vctOp.size()) break;
         }
     }
     return result;

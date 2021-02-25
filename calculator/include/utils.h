@@ -17,7 +17,7 @@ public:
     bool isNumber(string str);
     bool isNumber(char c);
     bool checkBrackets(string str);
-    string getNumberFromOp(string op, int idx);
+    string getNextNumber(string op, unsigned int &idx);
     vector<string> getOp(string op);
 protected:
 private:
