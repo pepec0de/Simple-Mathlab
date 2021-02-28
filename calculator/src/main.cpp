@@ -33,14 +33,23 @@ double calc(string op) {
             cout << vctOp[i] << endl;
         }
         cout << "Tamaño vctOp : " << vctOp.size() << endl;
-        for (unsigned int i = 0; i < vctOp.size(); i++) {
+        for (unsigned int i = 0; i < vctOp.size(); i+=3) {
             cout << "Trabajamos con: " << vctOp[i] << ", " << vctOp[i+1] << ", " << vctOp[i+2] << endl;
-            num1 = stof(vctOp[i]);
-            // casting string to char
-            nextOp = vctOp[i+1][0];
-            num2 = stof(vctOp[i+2]);
-            result += operar(num1, num2, nextOp);
-            if ((i+2)+1 == vctOp.size()) break;
+            
+            
+            if (utils.isNumber(vctOp[i])) {
+                num1 = stof(vctOp[i]);
+                nextOp = vctOp[i+1][0]; // cast string to char
+                num2 = stof(vctOp[i+2]);
+                if (i == 0) result = operar(num1, num2, nextOp);
+                else result = operar(result, operar(num1, num2, nextOp), vctOp[i-1][0]);
+            } else {
+                num1 = stof(vctOp[i+1]);
+                nextOp = vctOp[i][0]; // cast string to char
+                result = operar(result, num1, nextOp);
+            }
+            
+            cout << "Result = " << result << endl;
         }
     }
     return result;
