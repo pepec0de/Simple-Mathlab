@@ -21,35 +21,29 @@ double operar(double a, double b, char op) {
 }
 
 double calc(string op) {
-    double result = 0;
+    double result;
     if (utils.checkBrackets(op)) {
 
     } else {
         double num1, num2;
         char nextOp;
         vector<string> vctOp = utils.getOp(op);
-        cout << "Imprimimos vctOp:\n";
-        for (unsigned int i = 0; i < vctOp.size(); i++) {
-            cout << vctOp[i] << endl;
-        }
-        cout << "Tamaño vctOp : " << vctOp.size() << endl;
-        for (unsigned int i = 0; i < vctOp.size(); i+=3) {
-            cout << "Trabajamos con: " << vctOp[i] << ", " << vctOp[i+1] << ", " << vctOp[i+2] << endl;
-            
-            
-            if (utils.isNumber(vctOp[i])) {
+
+        // Simple linear calc
+        unsigned int step = 3;
+        for (unsigned int i = 0; i < vctOp.size(); i += step) {
+            // if its the first calc we have to get two nums
+            if (i == 0) {
                 num1 = stof(vctOp[i]);
-                nextOp = vctOp[i+1][0]; // cast string to char
+                nextOp = vctOp[i+1][0];
                 num2 = stof(vctOp[i+2]);
-                if (i == 0) result = operar(num1, num2, nextOp);
-                else result = operar(result, operar(num1, num2, nextOp), vctOp[i-1][0]);
+                result = operar(num1, num2, nextOp);
             } else {
+                // we calc like: (*x) doing it linearly
                 num1 = stof(vctOp[i+1]);
-                nextOp = vctOp[i][0]; // cast string to char
-                result = operar(result, num1, nextOp);
+                result = operar(result, num1, vctOp[i][0]);
+                step = 2;
             }
-            
-            cout << "Result = " << result << endl;
         }
     }
     return result;

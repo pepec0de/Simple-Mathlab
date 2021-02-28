@@ -61,6 +61,7 @@ string utils::getNextNumber(string op, unsigned int &idx) {
             break;
         }
     }
+    cout << "getNextNumber : return -> " << number << endl;
     return number;
 }
 
@@ -68,6 +69,8 @@ vector<string> utils::getOp(string op) {
     vector<string> vct;
     // String must have less numbers than its size. numbers of nums < .size()
     int cont = 0; 
+    // TODO : solve BUG with floating point numbers that have more than
+    // 2 digits
     unsigned int currIdx = 0;
     for (unsigned int i = 0; i < op.size(); i++) {
         cout << "Call number : " << cont << endl; cont++;
