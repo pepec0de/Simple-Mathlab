@@ -1,6 +1,6 @@
 #include "../include/utils.h"
 
-#define DEBUG true
+#define DEBUG false
 
 using namespace std;
 

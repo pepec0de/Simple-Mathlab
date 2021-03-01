@@ -97,7 +97,6 @@ vector<string> utils::getOp(string op) {
     // String must have less numbers than its size. numbers of nums < .size()
     // DONE : solve BUG with numbers that have 4 digits or more (including '.')
     unsigned int currIdx = 0;
-    cout << "Op size : " << op.size() << endl;
     for (unsigned int i = 0; i < op.size(); i++) {
         string posibleNumb = getNextNumber(op, currIdx);
         if (posibleNumb != "") vct.push_back(posibleNumb);
@@ -108,7 +107,6 @@ vector<string> utils::getOp(string op) {
         }
         currIdx++;
         i = currIdx;
-        cout << currIdx << endl;
     }
     return vct;
 }
