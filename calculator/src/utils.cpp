@@ -43,7 +43,28 @@ bool utils::checkBrackets(string str) {
     }
     return false;
 }
+// Si buscas resultados distintos no hagas siempre lo mismo
+/*string utils::getNextNumber(string op, unsigned int &idx) {
+    string number = "";
+    bool signFound = false;
+    for (unsigned int i = idx; i < op.size(); i++) {
+        if (isSign(op[i])) {
+            number.push_back(op[i]);
+            signFound = true;
+        } else if (isNumber(op[i])) {
+            if (i > 0 && number.size() == 0) if (isSign(op[i-1])) number.push_back(op[i-1]);
+            signFound = true;
+            number.push_back(op[i]);
+        }
 
+        if (!isNumber(op[i]) && signFound) {
+            idx = i-1;
+            break;
+        }
+    }
+    cout << "getNextNumber : return -> " << number << endl;
+    return number;
+}*/
 string utils::getNextNumber(string op, unsigned int &idx) {
     string number = "";
     bool signFound = false;
@@ -52,28 +73,32 @@ string utils::getNextNumber(string op, unsigned int &idx) {
             number.push_back(op[i]);
             signFound = true;
         } else if (isNumber(op[i])) {
-            if (i < 0 && number.size() == 0) if (isSign(op[i-1])) number.push_back(op[i-1]);
-            signFound = true;
+if (i > 0 && number.size() == 0) if (isSign(op[i-1])) number.push_back(op[i-1]);
             number.push_back(op[i]);
+            signFound = true;
         }
+
+        // Check end of vector
+        if (i+1 == op.size()) {
+            idx = i;
+            break;
+        }
+
         if (!isNumber(op[i]) && signFound) {
             idx = i-1;
             break;
         }
     }
-    cout << "getNextNumber : return -> " << number << endl;
     return number;
 }
 
 vector<string> utils::getOp(string op) {
     vector<string> vct;
     // String must have less numbers than its size. numbers of nums < .size()
-    int cont = 0; 
-    // TODO : solve BUG with floating point numbers that have more than
-    // 2 digits
+    // DONE : solve BUG with numbers that have 4 digits or more (including '.')
     unsigned int currIdx = 0;
+    cout << "Op size : " << op.size() << endl;
     for (unsigned int i = 0; i < op.size(); i++) {
-        cout << "Call number : " << cont << endl; cont++;
         string posibleNumb = getNextNumber(op, currIdx);
         if (posibleNumb != "") vct.push_back(posibleNumb);
         currIdx++;
@@ -83,6 +108,7 @@ vector<string> utils::getOp(string op) {
         }
         currIdx++;
         i = currIdx;
+        cout << currIdx << endl;
     }
     return vct;
 }
