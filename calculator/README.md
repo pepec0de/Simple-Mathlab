@@ -5,14 +5,15 @@ in the string.
 
 It's standard C++, so it is really easy to build.
 
-Build the application:
+Build the application:<br>
     ~ make
 
-Run the program:
+Run the program:<br>
     ~ ./bin/exe
 
-TODO list:
-    - Arrow key listener (operations history).
-    - Code the brackets processor.
-    - Implement different number format (like Matlab).
-    - Diff function (derivative).
+TODO list:<br>
+    - Arrow key listener (operations history).<br>
+    - Code the brackets processor.<br>
+    - Implement different number format (like Matlab).<br>
+    - Diff function (derivative).<br>
+    - Comment all functions.<br>
