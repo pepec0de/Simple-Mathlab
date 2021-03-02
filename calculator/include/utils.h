@@ -4,21 +4,24 @@
 #include <iostream>
 #include <vector>
 
-#include "stringutils.h"
+#define DEBUG true
 
 using namespace std;
 
-class utils {
+class Utils {
 public:
-    stringutils strUtils;
-
     bool isSign(char c);
     bool isOperator(char c);
     bool isNumber(string str);
     bool isNumber(char c);
-    bool checkBrackets(string str);
+    
     string getNextNumber(string op, unsigned int &idx);
     vector<string> getOp(string op);
+
+    // Calc functions
+    long double op(long double a, long double b, char cop);
+    long double linearcalc(string op);
+    long double bracketscalc(string bracketsOp);
 protected:
 private:
 };

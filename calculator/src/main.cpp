@@ -1,14 +1,18 @@
+#include "../include/stringutils.h"
 #include "../include/utils.h"
-
-#define DEBUG false
 
 using namespace std;
 
-utils utils;
-double acumulador;
+StringUtils strUtils;
+Utils utils;
+long double acumulador;
 char signs[] = {'+', '-'};
 
-double operar(double a, double b, char op) {
+
+// TODO : function interpreter
+// ...
+
+long double operar(long double a, long double b, char op) {
     switch(op) {
         case '*':
             return a*b;
@@ -20,17 +24,16 @@ double operar(double a, double b, char op) {
     return 0;
 }
 
-double calc(string op) {
-    double result;
-    if (utils.checkBrackets(op)) {
-
-    } else {
-        double num1, num2;
-        char nextOp;
-        vector<string> vctOp = utils.getOp(op);
-
-        // Simple linear calc
-        unsigned int step = 3;
+long double calc(string op) {
+    long double result;
+    
+    // we could get rid of these vars
+    long double num1, num2;
+    char nextOp;
+    vector<string> vctOp = utils.getOp(op);
+    // Simple linear calc
+    unsigned int step = 3;
+    try {
         for (unsigned int i = 0; i < vctOp.size(); i += step) {
             // if its the first calc we have to get two nums
             if (i == 0) {
@@ -45,12 +48,15 @@ double calc(string op) {
                 step = 2;
             }
         }
+    } catch (exception& e) {
+        cout << "\tSyntax error!\n";
+        result = 0;
     }
     return result;
 }
 
-double solve(string cmdStr) {
-    vector<string> vctOp = utils.strUtils.split(cmdStr, signs, 2, true);
+long double solve(string cmdStr) {
+    vector<string> vctOp = strUtils.split(cmdStr, signs, 2, true);
     for (unsigned int i = 0; i < vctOp.size(); i++) {
         string num = vctOp[i];
         if (DEBUG) cout << "Procesamos el elemento: \"" << num << "\"\n";
@@ -58,8 +64,10 @@ double solve(string cmdStr) {
             acumulador += stof(num);
         } else {
             /* Para ordenar operaciones dentro de () necesito
-             * un arbol binario
-             * TODO: aprender arboles binarios
+             * un arbol binario.
+             * TODO: aprender a programar arboles binarios
+             * Voy a aplicar la formula de los arboles multirama para usar
+             * solo arboles binarios.
              */
             if (DEBUG) cout << num << " : no es un numero\n";
             acumulador += calc(num);
@@ -71,7 +79,7 @@ double solve(string cmdStr) {
 void input(string &cmdStr) {
     cout << ">> ";
     getline(cin, cmdStr);
-    cmdStr = utils.strUtils.replaceAll(cmdStr, " ", "");
+    cmdStr = strUtils.replaceAll(cmdStr, " ", "");
 }
 
 int main() {

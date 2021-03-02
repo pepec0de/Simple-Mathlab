@@ -8,13 +8,8 @@
 
 using namespace std;
 
-class stringutils {
+class StringUtils {
     public:
-        /*
-         * stringutils();
-         * virtual ~stringutils();
-         *
-         */
         vector<string> split(string str, char delimiter);
         vector<string> split(string str, char delimiters[], unsigned int delimitersSize, bool addDelim);
 

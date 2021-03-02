@@ -1,7 +1,7 @@
 #include "../include/stringutils.h"
 
 // Func to split a string with a given char
-vector<string> stringutils::split(string str, char delimiter) {
+vector<string> StringUtils::split(string str, char delimiter) {
 	vector<string> strVct;
 	unsigned int relStart = 0;
 	for (unsigned int i = 0; i < str.size(); i++) {
@@ -22,7 +22,7 @@ vector<string> stringutils::split(string str, char delimiter) {
 /* Example output: split(str, {'+', '-'}, true)
  * "1+2*2+3-4+5" -> [1, +2*2, +3, -4, +5]
  */
-vector<string> stringutils::split(string str, char delimiters[], unsigned int delimitersSize, bool addDelim) {
+vector<string> StringUtils::split(string str, char delimiters[], unsigned int delimitersSize, bool addDelim) {
     vector<string> strVct;
     unsigned int relStart = 0;
     for (unsigned int i = 0; i < str.size(); i++) {
@@ -44,7 +44,7 @@ vector<string> stringutils::split(string str, char delimiters[], unsigned int de
 
 
 // Func to do substring having an interval
-string stringutils::getSubstring(string str, unsigned int start, unsigned int end) {
+string StringUtils::getSubstring(string str, unsigned int start, unsigned int end) {
 	string result = "";
 	for (unsigned int i = start; i < end; i++) {
         result += str[i];
@@ -53,7 +53,7 @@ string stringutils::getSubstring(string str, unsigned int start, unsigned int en
 }
 
 // Func to remove last characters of a string (has to be a negative number)
-string stringutils::getSubstring(string str, int fromEnd) {
+string StringUtils::getSubstring(string str, int fromEnd) {
 	string result = "";
 	if (fromEnd < 0) {
 		for (int i = 0; i < (fromEnd + (int)str.size()); i++) {
@@ -68,7 +68,7 @@ string stringutils::getSubstring(string str, int fromEnd) {
 //
 
 // Func to replace all chars that matches with another
-string stringutils::replaceAll(string str, char regex, char replacement) {
+string StringUtils::replaceAll(string str, char regex, char replacement) {
     for (unsigned int i = 0; i < str.size(); i++) {
         if (str[i] == regex) str[i] = replacement;
     }
@@ -76,7 +76,7 @@ string stringutils::replaceAll(string str, char regex, char replacement) {
 }
 
 // Func to replace all strs that matches with another
-string stringutils::replaceAll(string str, string regex, string replacement) {
+string StringUtils::replaceAll(string str, string regex, string replacement) {
     int relEnd = 0;
     for (unsigned int i = 0; i < str.size(); i++) {
         // we check if the first char of regex matches with current char
@@ -94,13 +94,13 @@ string stringutils::replaceAll(string str, string regex, string replacement) {
 //
 // Converters
 //
-string stringutils::tostring(float value) {
+string StringUtils::tostring(float value) {
     ostringstream strs;
     strs << value;
     return strs.str();
 }
 
-string stringutils::tostring(char value) {
+string StringUtils::tostring(char value) {
     string str;
     str.push_back(value);
     return str;
