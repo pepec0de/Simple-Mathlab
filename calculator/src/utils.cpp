@@ -37,6 +37,26 @@ bool Utils::isNumber(char c) {
     return true;
 }
 
+vector<string> Utils::splitBySigns(string op) {
+    vector<string> vct;
+    unsigned int relStart = 0;
+    unsigned int bracketCounter = 0;
+    for (unsigned int i = 0; i < op.size(); i++) {
+        if (op[i] == '(') {
+            bracketCounter++;
+        } else if (op[i] == ')') {
+            bracketCounter--;
+        }
+        if ( (op[i] == '+' || op[i] == '-') && bracketCounter == 0) {
+            // Do substring and add to vector
+            vct.push_back(strUtils.getSubstring(op, relStart, i));
+            relStart = i;
+        }
+    }
+    vct.push_back(strUtils.getSubstring(op, relStart, op.size()));
+    return vct;
+}
+
 // Si buscas resultados distintos no hagas siempre lo mismo ~ Einstein
 /*
  * Function to get the next number on a specified index of the string
@@ -50,6 +70,15 @@ string Utils::getNextNumber(string op, unsigned int &idx) {
     string number = "";
     bool signFound = false;
     for (unsigned int i = idx; i < op.size(); i++) {
+        // The calculator of brackets have to be here
+        if (op[i] == '(') {
+            /*
+             * TODO : learn how to work with binary trees.
+             * use binary trees as multi branch trees. (right childs), (left
+             * brothers).
+             */
+
+        } 
         if (isSign(op[i])) {
             // add sign
             number.push_back(op[i]);
@@ -99,4 +128,71 @@ vector<string> Utils::getOp(string op) {
         i = currIdx;
     }
     return vct;
+}
+
+long double Utils::operate(long double a, long double b, char cop) {
+    switch(cop) {
+        case '*': return a*b;
+        case '/': return a/b;
+    }
+    return 0;
+}
+
+long double Utils::linearCalc(string op) {
+    long double result = 0;
+    
+    // we could get rid of these vars but they make it easier to read the code.
+    long double num1, num2;
+    char nextOp;
+    vector<string> vctOp = getOp(op);
+    // Simple linear calc
+    unsigned int step = 3; // default loop step
+    for (unsigned int i = 0; i < vctOp.size(); i += step) {
+        // if its the first calc we have to get two nums
+        if (i == 0) {
+            // Parameters for operator func:
+            num1 = stof(vctOp[i]);
+            nextOp = vctOp[i+1][0]; // cast string to char
+            num2 = stof(vctOp[i+2]);
+            result = operate(num1, num2, nextOp);
+        } else {
+            // it isnt the first calc so go on linearly like : *a
+            nextOp = vctOp[i][0];
+            num1 = stof(vctOp[i+1]);
+            result = operate(result, num1, nextOp);
+            step = 2;
+        }
+    }
+    return result;
+}
+
+long double Utils::calcOp(string fullop) {
+    long double acumulator = 0;
+    // We follow the operation priority (), */, +-
+    vector<string> vctOp = splitBySigns(fullop);
+    for (string num : vctOp) {
+        if (DEBUG) cout << "Procesamos el elemento: \"" << num << "\"\n";
+        if (isNumber(num)) {
+            acumulator += stof(num);
+        } else {
+            // Calculate : (), */
+            if (DEBUG) cout << num << " : no es un numero\n";
+            acumulator += linearCalc(num);
+        }
+    }
+    return acumulator;
+}
+
+string Utils::bracketsFinish(string brackets) {
+    string num;
+    return num;    
+}
+
+long double Utils::bracketsCalc(string bracketsOp) {
+    // TODO: Implement a binary tree builder that will process every child with
+    // calcOp.
+    struct Node {
+
+    };
+    return 0;
 }

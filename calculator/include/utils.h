@@ -4,6 +4,8 @@
 #include <iostream>
 #include <vector>
 
+#include "stringutils.h"
+
 #define DEBUG true
 
 using namespace std;
@@ -15,14 +17,19 @@ public:
     bool isNumber(string str);
     bool isNumber(char c);
     
+    vector<string> splitBySigns(string op);
     string getNextNumber(string op, unsigned int &idx);
     vector<string> getOp(string op);
 
     // Calc functions
-    long double op(long double a, long double b, char cop);
-    long double linearcalc(string op);
-    long double bracketscalc(string bracketsOp);
+    long double operate(long double a, long double b, char cop);
+    long double linearCalc(string op);
+    long double calcOp(string fullop);
+    long double bracketsCalc(string bracketsOp);
+    string bracketsFinish(string brackets);
+
 protected:
 private:
+    StringUtils strUtils;
 };
 #endif // UTILS_H
