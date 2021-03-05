@@ -77,7 +77,11 @@ string Utils::getNextNumber(string op, unsigned int &idx) {
              * use binary trees as multi branch trees. (right childs), (left
              * brothers).
              */
-
+            unsigned int closingIdx = getClosingBracketIndex(op, i);
+            number = bracketsFinish(strUtils.getSubstring(op, i+1, closingIdx));
+            cout << "Brackets result : " + number << endl;
+            idx = closingIdx;
+            break;
         } 
         if (isSign(op[i])) {
             // add sign
@@ -114,7 +118,7 @@ if (i > 0 && number.size() == 0) if (isSign(op[i-1])) number.push_back(op[i-1]);
 vector<string> Utils::getOp(string op) {
     vector<string> vct;
     // String must have less numbers than its size. numbers of nums < .size()
-    // DONE : solve BUG with numbers that have 4 digits or more (including '.')
+    // DONE : solved BUG with numbers that have 4 digits or more (including '.')
     unsigned int currIdx = 0;
     for (unsigned int i = 0; i < op.size(); i++) {
         string posibleNumb = getNextNumber(op, currIdx);
@@ -145,6 +149,7 @@ long double Utils::linearCalc(string op) {
     long double num1, num2;
     char nextOp;
     vector<string> vctOp = getOp(op);
+    if (vctOp.size() == 1) return stof(vctOp[0]);
     // Simple linear calc
     unsigned int step = 3; // default loop step
     for (unsigned int i = 0; i < vctOp.size(); i += step) {
@@ -183,16 +188,36 @@ long double Utils::calcOp(string fullop) {
     return acumulator;
 }
 
+// parameter brackets will be given without the ()
 string Utils::bracketsFinish(string brackets) {
-    string num;
-    return num;    
+    long double result = 0;
+    result = calcOp(brackets);
+    // cast int to string
+    return strUtils.tostring(result);
 }
 
 long double Utils::bracketsCalc(string bracketsOp) {
     // TODO: Implement a binary tree builder that will process every child with
     // calcOp.
+    //
+    //
+    //
+    // I think this will be more simple than this
     struct Node {
 
     };
+    return 0;
+}
+
+unsigned int Utils::getClosingBracketIndex(string str, unsigned int idxOpen) {
+    int cont = 0;
+    for (unsigned int i = idxOpen; i < str.size(); i++) {
+        if (str[i] == '(') cont++;
+        else 
+        if (str[i] == ')') cont--;
+
+        if (str[i] == ')' && cont == 0) return i;
+    }
+    // It's imposible that a closing bracket will be at index 0
     return 0;
 }

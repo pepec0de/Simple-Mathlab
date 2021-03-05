@@ -27,7 +27,7 @@ public:
     long double calcOp(string fullop);
     long double bracketsCalc(string bracketsOp);
     string bracketsFinish(string brackets);
-
+    unsigned int getClosingBracketIndex(string str, unsigned int idxOpen);
 protected:
 private:
     StringUtils strUtils;
