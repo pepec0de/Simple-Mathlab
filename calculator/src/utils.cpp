@@ -75,11 +75,11 @@ string Utils::getNextNumber(string op, unsigned int &idx) {
             /*
              * TODO : learn how to work with binary trees.
              * use binary trees as multi branch trees. (right childs), (left
-             * brothers).
+             * brothers). No hace falta.
              */
             unsigned int closingIdx = getClosingBracketIndex(op, i);
-            number = bracketsFinish(strUtils.getSubstring(op, i+1, closingIdx));
-            cout << "Brackets result : " + number << endl;
+            number = bracketsCalc(strUtils.getSubstring(op, i+1, closingIdx));
+            if (DEBUG) cout << "Brackets result : " + number << endl;
             idx = closingIdx;
             break;
         } 
@@ -116,11 +116,14 @@ if (i > 0 && number.size() == 0) if (isSign(op[i-1])) number.push_back(op[i-1]);
  * 12*12*12/12 -> {"12", "*", "12", "*", "12", "/", 12}
  */
 vector<string> Utils::getOp(string op) {
+    // DONE : Recode this method
     vector<string> vct;
     // String must have less numbers than its size. numbers of nums < .size()
     // DONE : solved BUG with numbers that have 4 digits or more (including '.')
-    unsigned int currIdx = 0;
-    for (unsigned int i = 0; i < op.size(); i++) {
+    // DONE: Solve BUG with 1*1 operation
+
+    unsigned int currIdx = 0; 
+    while (currIdx < op.size()) {
         string posibleNumb = getNextNumber(op, currIdx);
         if (posibleNumb != "") vct.push_back(posibleNumb);
         currIdx++;
@@ -129,7 +132,6 @@ vector<string> Utils::getOp(string op) {
             vct.push_back(aux);
         }
         currIdx++;
-        i = currIdx;
     }
     return vct;
 }
@@ -149,6 +151,13 @@ long double Utils::linearCalc(string op) {
     long double num1, num2;
     char nextOp;
     vector<string> vctOp = getOp(op);
+    if (DEBUG) {
+        cout << "vctOp -> ";
+        for (string el : vctOp) {
+            cout << el << ", ";
+        }
+        cout << endl;
+    }
     if (vctOp.size() == 1) return stof(vctOp[0]);
     // Simple linear calc
     unsigned int step = 3; // default loop step
@@ -175,6 +184,7 @@ long double Utils::calcOp(string fullop) {
     long double acumulator = 0;
     // We follow the operation priority (), */, +-
     vector<string> vctOp = splitBySigns(fullop);
+    // TODO: signs calculator (find and fix bug)
     for (string num : vctOp) {
         if (DEBUG) cout << "Procesamos el elemento: \"" << num << "\"\n";
         if (isNumber(num)) {
@@ -189,24 +199,11 @@ long double Utils::calcOp(string fullop) {
 }
 
 // parameter brackets will be given without the ()
-string Utils::bracketsFinish(string brackets) {
+string Utils::bracketsCalc(string brackets) {
     long double result = 0;
     result = calcOp(brackets);
     // cast int to string
     return strUtils.tostring(result);
-}
-
-long double Utils::bracketsCalc(string bracketsOp) {
-    // TODO: Implement a binary tree builder that will process every child with
-    // calcOp.
-    //
-    //
-    //
-    // I think this will be more simple than this
-    struct Node {
-
-    };
-    return 0;
 }
 
 unsigned int Utils::getClosingBracketIndex(string str, unsigned int idxOpen) {

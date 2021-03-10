@@ -3,7 +3,8 @@
 A simple program that process a string and calculates the operations that are
 in the string.
 
-It's standard C++, so it is really easy to build.
+It's standard C++, so it is really easy to build and compatible with others
+OSs (multiplatform).
 
 Build the application:<br>
     ~ make

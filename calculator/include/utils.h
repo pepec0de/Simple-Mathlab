@@ -6,7 +6,7 @@
 
 #include "stringutils.h"
 
-#define DEBUG true
+#define DEBUG false
 
 using namespace std;
 
@@ -25,8 +25,7 @@ public:
     long double operate(long double a, long double b, char cop);
     long double linearCalc(string op);
     long double calcOp(string fullop);
-    long double bracketsCalc(string bracketsOp);
-    string bracketsFinish(string brackets);
+    string bracketsCalc(string brackets);
     unsigned int getClosingBracketIndex(string str, unsigned int idxOpen);
 protected:
 private:
