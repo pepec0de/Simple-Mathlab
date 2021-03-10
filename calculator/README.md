@@ -14,7 +14,7 @@ Run the program:<br>
 
 TODO list:<br>
     - Arrow key listener (operations history).<br>
-    - Code the brackets processor.<br>
+    - <strike>Code the brackets processor</strike>.<br>
     - Implement different number format (like Matlab).<br>
     - Diff function (derivative).<br>
     - Comment all functions.<br>
