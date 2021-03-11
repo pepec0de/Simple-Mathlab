@@ -128,10 +128,11 @@ vector<string> Utils::getOp(string op) {
         if (posibleNumb != "") vct.push_back(posibleNumb);
         currIdx++;
         if (isOperator(op[currIdx])) {
-            string aux; aux.push_back(op[currIdx]);
+            string aux; 
+            aux.push_back(op[currIdx]);
             vct.push_back(aux);
+            currIdx++; 
         }
-        currIdx++;
     }
     return vct;
 }

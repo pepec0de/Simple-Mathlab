@@ -6,7 +6,7 @@
 
 #include "stringutils.h"
 
-#define DEBUG false
+#define DEBUG true
 
 using namespace std;
 
