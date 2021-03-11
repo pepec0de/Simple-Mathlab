@@ -48,6 +48,7 @@ vector<string> Utils::splitBySigns(string op) {
             bracketCounter--;
         }
         if ( (op[i] == '+' || op[i] == '-') && bracketCounter == 0) {
+            if (i > 0) if (isOperator(op[i-1])) continue;
             // Do substring and add to vector
             vct.push_back(strUtils.getSubstring(op, relStart, i));
             relStart = i;

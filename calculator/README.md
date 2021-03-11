@@ -14,6 +14,7 @@ Run the program:<br>
 
 TODO list:<br>
     - Arrow key listener (operations history).<br>
+    - Solve bug with "1*-1" and "-1*1".
     - <strike>Code the brackets processor</strike>.<br>
     - Code a sign processor. 
     - Implement different number format (like Matlab).<br>
