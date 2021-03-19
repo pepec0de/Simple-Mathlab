@@ -48,7 +48,12 @@ vector<string> Utils::splitBySigns(string op) {
             bracketCounter--;
         }
         if ( (op[i] == '+' || op[i] == '-') && bracketCounter == 0) {
-            if (i > 0) if (isOperator(op[i-1])) continue;
+            if (i > 0) {
+                if (isOperator(op[i-1]) || !isNumber(op[i-1])) continue;
+            } else {
+                // i == 0
+                continue;
+            }
             // Do substring and add to vector
             vct.push_back(strUtils.getSubstring(op, relStart, i));
             relStart = i;
@@ -58,7 +63,7 @@ vector<string> Utils::splitBySigns(string op) {
     return vct;
 }
 
-// Si buscas resultados distintos no hagas siempre lo mismo ~ Einstein
+// Si buscas resultados distintos no hagas siempre lo mismo. ~ Einstein
 /*
  * Function to get the next number on a specified index of the string
  * given. It also works with floating point numbers.
@@ -71,26 +76,33 @@ string Utils::getNextNumber(string op, unsigned int &idx) {
     string number = "";
     bool signFound = false;
     for (unsigned int i = idx; i < op.size(); i++) {
-        // The calculator of brackets have to be here
+        // The calculator of brackets
         if (op[i] == '(') {
             /*
-             * TODO : learn how to work with binary trees.
-             * use binary trees as multi branch trees. (right childs), (left
-             * brothers). No hace falta.
+             * We check if there is a bracket going on, so we first calc the bracket
+             * and return it to the getOp operation. If there are more brackets on the
+             * bracket the function call itself the times it needs so it's a recursive
+             * method.
              */
             unsigned int closingIdx = getClosingBracketIndex(op, i);
             number = bracketsCalc(strUtils.getSubstring(op, i+1, closingIdx));
             if (DEBUG) cout << "Brackets result : " + number << endl;
             idx = closingIdx;
             break;
-        } 
+        }
+        // Check if we have to stop picking up the number
+        if (!isNumber(op[i]) && signFound) {
+            idx = i-1;
+            break;
+        }
         if (isSign(op[i])) {
             // add sign
+            if (DEBUG) cout << "Añadimos el signo : " << op[i] << endl;
             number.push_back(op[i]);
             signFound = true;
         } else if (isNumber(op[i])) {
             // Conditional to check if we can add the sign that go with the number
-if (i > 0 && number.size() == 0) if (isSign(op[i-1])) number.push_back(op[i-1]);
+            if (i > 0 && number.size() == 0) if (isSign(op[i-1])) number.push_back(op[i-1]);
             number.push_back(op[i]);
             signFound = true;
             // Check end of vector
@@ -99,13 +111,8 @@ if (i > 0 && number.size() == 0) if (isSign(op[i-1])) number.push_back(op[i-1]);
                 break;
             }
         }
-
-        // Finish picking up the number
-        if (!isNumber(op[i]) && signFound) {
-            idx = i-1;
-            break;
-        }
     }
+    if (DEBUG) cout << "return -> " << number << " and idx = " << idx << ";\n";
     return number;
 }
 
@@ -117,22 +124,28 @@ if (i > 0 && number.size() == 0) if (isSign(op[i-1])) number.push_back(op[i-1]);
  * 12*12*12/12 -> {"12", "*", "12", "*", "12", "/", 12}
  */
 vector<string> Utils::getOp(string op) {
-    // DONE : Recode this method
     vector<string> vct;
-    // String must have less numbers than its size. numbers of nums < .size()
-    // DONE : solved BUG with numbers that have 4 digits or more (including '.')
-    // DONE: Solve BUG with 1*1 operation
 
     unsigned int currIdx = 0; 
     while (currIdx < op.size()) {
         string posibleNumb = getNextNumber(op, currIdx);
-        if (posibleNumb != "") vct.push_back(posibleNumb);
-        currIdx++;
+        //cout << "Print posibleNumb: " << posibleNumb << endl;
+        //return vct;//DEBUG
+        if (posibleNumb != "") {
+            vct.push_back(posibleNumb);
+            currIdx++;
+        }
         if (isOperator(op[currIdx])) {
             string aux; 
             aux.push_back(op[currIdx]);
             vct.push_back(aux);
             currIdx++; 
+        }
+    }
+    if (DEBUG) {
+        cout << "[getOp] vct -> ";
+        for (string el : vct) {
+            cout << el << ", ";
         }
     }
     return vct;
@@ -186,7 +199,14 @@ long double Utils::calcOp(string fullop) {
     long double acumulator = 0;
     // We follow the operation priority (), */, +-
     vector<string> vctOp = splitBySigns(fullop);
-    // TODO: signs calculator (find and fix bug)
+    if (DEBUG) {
+        cout << "[calcOp] vctOp -> "; 
+        for (string str : vctOp) {
+            cout << str << ", ";
+        }
+        cout << endl;
+    }
+    // TODO: signs calculator (find and fix bug -1*1, 1*-1 and --1)
     for (string num : vctOp) {
         if (DEBUG) cout << "Procesamos el elemento: \"" << num << "\"\n";
         if (isNumber(num)) {

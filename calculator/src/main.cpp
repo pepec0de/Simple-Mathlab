@@ -6,8 +6,6 @@ using namespace std;
 StringUtils strUtils;
 Utils utils;
 long double acumulador;
-char signs[] = {'+', '-'};
-
 
 // TODO : function interpreter
 // ...
