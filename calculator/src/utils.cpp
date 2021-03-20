@@ -84,8 +84,11 @@ string Utils::getNextNumber(string op, unsigned int &idx) {
              * bracket the function call itself the times it needs so it's a recursive
              * method.
              */
+            // Add sign if is there
+            if (i > 0 && number.size() == 0) if (isSign(op[i-1])) number.push_back(op[i-1]);
+
             unsigned int closingIdx = getClosingBracketIndex(op, i);
-            number = bracketsCalc(strUtils.getSubstring(op, i+1, closingIdx));
+            number += bracketsCalc(strUtils.getSubstring(op, i+1, closingIdx));
             if (DEBUG) cout << "Brackets result : " + number << endl;
             idx = closingIdx;
             break;
@@ -206,7 +209,7 @@ long double Utils::calcOp(string fullop) {
         }
         cout << endl;
     }
-    // TODO: signs calculator (find and fix bug -1*1, 1*-1 and --1)
+    // TODO: signs calculator --1, solve BUG : -(1*1)
     for (string num : vctOp) {
         if (DEBUG) cout << "Procesamos el elemento: \"" << num << "\"\n";
         if (isNumber(num)) {
