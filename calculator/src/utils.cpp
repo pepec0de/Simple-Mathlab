@@ -48,14 +48,20 @@ vector<string> Utils::splitBySigns(string op) {
             bracketCounter--;
         }
         if ( (op[i] == '+' || op[i] == '-') && bracketCounter == 0) {
+            // To avoid bug : "-4" -> {-, 4}
             if (i > 0) {
                 if (isOperator(op[i-1]) || !isNumber(op[i-1])) continue;
             } else {
                 // i == 0
                 continue;
             }
+            // Cambio
+            // Add the sign
+            //vct.push_back(strUtils.tostring(op[i]));
+
+            // Then add number
             // Do substring and add to vector
-            vct.push_back(strUtils.getSubstring(op, relStart, i));
+            vct.push_back(strUtils.getSubstring(op, relStart/*+1*/, i));
             relStart = i;
         }
     }
@@ -201,7 +207,8 @@ long double Utils::linearCalc(string op) {
 
 long double Utils::calcOp(string fullop) {
     long double acumulator = 0;
-    // We follow the operation priority (), */, +-
+    // We follow the operation priority () -> getNextNumber, *./ -> linearCalc, +-
+    // -> calcOp
     vector<string> vctOp = splitBySigns(fullop);
     if (DEBUG) {
         cout << "[calcOp] vctOp -> "; 
@@ -211,12 +218,13 @@ long double Utils::calcOp(string fullop) {
         cout << endl;
     }
     // TODO: signs calculator --1, solve BUG : -(1*1)
+    // TODO: FOr this implement same mechanism as linearCalc here
     for (string num : vctOp) {
         if (DEBUG) cout << "Procesamos el elemento: \"" << num << "\"\n";
         if (isNumber(num)) {
             acumulator += stof(num);
         } else {
-            // Calculate : (), */
+            // Calculate : (), *./
             if (DEBUG) cout << num << " : no es un numero\n";
             acumulator += linearCalc(num);
         }
