@@ -150,6 +150,7 @@ vector<string> Utils::getOp(string op) {
         for (string el : vct) {
             cout << el << ", ";
         }
+        cout << endl;
     }
     return vct;
 }
@@ -170,7 +171,7 @@ long double Utils::linearCalc(string op) {
     char nextOp;
     vector<string> vctOp = getOp(op);
     if (DEBUG) {
-        cout << "vctOp -> ";
+        cout << "[linearCalc] vctOp -> ";
         for (string el : vctOp) {
             cout << el << ", ";
         }
