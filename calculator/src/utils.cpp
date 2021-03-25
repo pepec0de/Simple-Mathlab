@@ -37,36 +37,44 @@ bool Utils::isNumber(char c) {
     return true;
 }
 
+char Utils::signsProc(char a, char b) {
+    string _a = strUtils.tostring(a) + "1";
+    string _b = strUtils.tostring(b) + "1";
+    return stoi(_a)*stoi(_b) > 0 ? '+' : '-';
+}
+
 vector<string> Utils::splitBySigns(string op) {
     vector<string> vct;
     unsigned int relStart = 0;
-    unsigned int bracketCont = 0;
-    bool signFound = false;
-
+    unsigned int bracketCounter = 0;
+    bool numberFound = false;
     for (unsigned int i = 0; i < op.size(); i++) {
         if (op[i] == '(') {
-            bracketCont++;
+            bracketCounter++;
         } else if (op[i] == ')') {
-            bracketCont--;
+            bracketCounter--;
         }
-
-        if ( (op[i] == '+' || op[i] == '-') && bracketCont == 0 && !signFound) {
+        if ( (op[i] == '+' || op[i] == '-') && bracketCounter == 0) {
+            // To avoid bug : "-4" -> {-, 4}
             if (i > 0) {
-                // To add the number of beginning
-                if (relStart == 0) {
-                    vct.push_back(strUtils.getSubstring(op, relStart, i));
+                if (isSign(op[i-1])) {
+                    char newSign = signsProc(op[i-1], op[i]);
+                    op.erase(i-1);
+                    op[i] = newSign;
                 }
-                signFound = true;
-                vct.push_back(strUtils.tostring(op[i]));
-                relStart = i+1;
+                if (isOperator(op[i-1]) || !isNumber(op[i-1])) {
+                    continue;
+                }
+            } else {
+                // i == 0
+                continue;
             }
 
-            // We add the number that is behind a sign till we got to next sign
-            if (signFound) {
-                vct.push_back(strUtils.getSubstring(op, relStart, i));
-                signFound = false;
-            }
-        }      
+            // Then add number
+            // Do substring and add to vector
+            vct.push_back(strUtils.getSubstring(op, relStart, i));
+            relStart = i;
+        }
     }
     vct.push_back(strUtils.getSubstring(op, relStart, op.size()));
     return vct;

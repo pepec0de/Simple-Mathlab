@@ -40,30 +40,33 @@ bool Utils::isNumber(char c) {
 vector<string> Utils::splitBySigns(string op) {
     vector<string> vct;
     unsigned int relStart = 0;
-    unsigned int bracketCounter = 0;
+    unsigned int bracketCont = 0;
+    bool signFound = false;
+
     for (unsigned int i = 0; i < op.size(); i++) {
         if (op[i] == '(') {
-            bracketCounter++;
+            bracketCont++;
         } else if (op[i] == ')') {
-            bracketCounter--;
+            bracketCont--;
         }
-        if ( (op[i] == '+' || op[i] == '-') && bracketCounter == 0) {
-            // To avoid bug : "-4" -> {-, 4}
-            if (i > 0) {
-                if (isOperator(op[i-1]) || !isNumber(op[i-1])) continue;
-            } else {
-                // i == 0
-                continue;
-            }
-            // Cambio
-            // Add the sign
-            //vct.push_back(strUtils.tostring(op[i]));
 
-            // Then add number
-            // Do substring and add to vector
-            vct.push_back(strUtils.getSubstring(op, relStart/*+1*/, i));
-            relStart = i;
-        }
+        if ( (op[i] == '+' || op[i] == '-') && bracketCont == 0 && !signFound) {
+            if (i > 0) {
+                // To add the number of beginning
+                if (relStart == 0) {
+                    vct.push_back(strUtils.getSubstring(op, relStart, i));
+                }
+                signFound = true;
+                vct.push_back(strUtils.tostring(op[i]));
+                relStart = i+1;
+            }
+
+            // We add the number that is behind a sign till we got to next sign
+            if (signFound) {
+                vct.push_back(strUtils.getSubstring(op, relStart, i));
+                signFound = false;
+            }
+        }      
     }
     vct.push_back(strUtils.getSubstring(op, relStart, op.size()));
     return vct;

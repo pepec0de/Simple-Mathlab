@@ -94,6 +94,13 @@ string StringUtils::replaceAll(string str, string regex, string replacement) {
 //
 // Converters
 //
+
+string StringUtils::tostring(int value) {
+    ostringstream strs;
+    strs << value;
+    return strs.str();
+}
+
 string StringUtils::tostring(float value) {
     ostringstream strs;
     strs << value;

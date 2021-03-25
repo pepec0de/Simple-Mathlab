@@ -18,7 +18,8 @@ class StringUtils {
         
         string replaceAll(string str, char regex, char replacement);
         string replaceAll(string str, string regex, string replacement);
-
+    
+        string tostring(int value);
         string tostring(float value);
         string tostring(long double value);
         string tostring(char value);

@@ -16,7 +16,8 @@ public:
     bool isOperator(char c);
     bool isNumber(string str);
     bool isNumber(char c);
-    
+    char signsProc(char a, char b); 
+
     vector<string> splitBySigns(string op);
     string getNextNumber(string op, unsigned int &idx);
     vector<string> getOp(string op);
