@@ -19,6 +19,8 @@ class StringUtils {
         string replaceAll(string str, char regex, char replacement);
         string replaceAll(string str, string regex, string replacement);
     
+        string dropIndex(string str, unsigned int idx);
+
         string tostring(int value);
         string tostring(float value);
         string tostring(long double value);

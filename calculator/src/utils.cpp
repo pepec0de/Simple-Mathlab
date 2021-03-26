@@ -47,7 +47,7 @@ vector<string> Utils::splitBySigns(string op) {
     vector<string> vct;
     unsigned int relStart = 0;
     unsigned int bracketCounter = 0;
-    bool numberFound = false;
+
     for (unsigned int i = 0; i < op.size(); i++) {
         if (op[i] == '(') {
             bracketCounter++;
@@ -58,11 +58,12 @@ vector<string> Utils::splitBySigns(string op) {
             // To avoid bug : "-4" -> {-, 4}
             if (i > 0) {
                 if (isSign(op[i-1])) {
-                    char newSign = signsProc(op[i-1], op[i]);
-                    op.erase(i-1);
-                    op[i] = newSign;
-                }
-                if (isOperator(op[i-1]) || !isNumber(op[i-1])) {
+                    op[i] = signsProc(op[i-1], op[i]);
+                    op = strUtils.dropIndex(op, i-1);
+                    // We need to reduce the current index because we have
+                    // reduce the op.size() by -1.
+                    i--;
+                } else if (isOperator(op[i-1])) {
                     continue;
                 }
             } else {
@@ -72,7 +73,8 @@ vector<string> Utils::splitBySigns(string op) {
 
             // Then add number
             // Do substring and add to vector
-            vct.push_back(strUtils.getSubstring(op, relStart, i));
+            string substring = strUtils.getSubstring(op, relStart, i);
+            if (substring != "") vct.push_back(substring);
             relStart = i;
         }
     }

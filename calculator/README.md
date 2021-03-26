@@ -16,6 +16,6 @@ TODO list:<br>
     - Arrow key listener (operations history).<br>
     - <strike>Solve bug with "1*-1" and "-1*1"</strike>.<br>
     - <strike>Code the brackets processor</strike>.<br>
-    - Code a sign processor.<br> 
+    - <strike>Code a sign processor</strike>.<br> 
     - Implement different number format (like Matlab).<br>
     - Comment all functions.<br>

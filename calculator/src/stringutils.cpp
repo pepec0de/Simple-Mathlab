@@ -85,10 +85,15 @@ string StringUtils::replaceAll(string str, string regex, string replacement) {
             if (getSubstring(str, i, relEnd) == regex) {
                 str = getSubstring(str, 0, i) + replacement
                     + getSubstring(str, relEnd, str.size());
+                i--; // i dont know why, but mustnt remove it
             }
         }
     }
     return str;
+}
+
+string StringUtils::dropIndex(string str, unsigned int idx) {
+    return getSubstring(str, 0, idx)+getSubstring(str, idx+1, str.size());
 }
 
 //

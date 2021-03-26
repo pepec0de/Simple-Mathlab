@@ -27,8 +27,10 @@ int main() {
     acumulador = 0;
     while (cmdStr != "q") {
         acumulador = 0;
-        acumulador = utils.calcOp(cmdStr);
-        cout << "\n\tans = " << acumulador << "\n\n"; 
+        if (cmdStr != "") {
+            acumulador = utils.calcOp(cmdStr);
+            cout << "\n\tans = " << acumulador << "\n\n"; 
+        }
         input(cmdStr);
     }
     return 0;
