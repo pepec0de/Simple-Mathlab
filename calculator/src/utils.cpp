@@ -151,8 +151,6 @@ vector<string> Utils::getOp(string op) {
     unsigned int currIdx = 0; 
     while (currIdx < op.size()) {
         string posibleNumb = getNextNumber(op, currIdx);
-        //cout << "Print posibleNumb: " << posibleNumb << endl;
-        //return vct;//DEBUG
         if (posibleNumb != "") {
             vct.push_back(posibleNumb);
             currIdx++;
@@ -230,8 +228,7 @@ long double Utils::calcOp(string fullop) {
         }
         cout << endl;
     }
-    // TODO: signs calculator --1, solve BUG : -(1*1)
-    // TODO: FOr this implement same mechanism as linearCalc here
+
     for (string num : vctOp) {
         if (DEBUG) cout << "Procesamos el elemento: \"" << num << "\"\n";
         if (isNumber(num)) {
