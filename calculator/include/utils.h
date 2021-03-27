@@ -18,7 +18,7 @@ public:
     bool isNumber(char c);
     char signsProc(char a, char b); 
 
-    vector<string> splitBySigns(string op);
+    vector<string> getFullOp(string op);
     string getNextNumber(string op, unsigned int &idx);
     vector<string> getOp(string op);
 

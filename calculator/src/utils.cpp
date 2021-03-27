@@ -43,7 +43,7 @@ char Utils::signsProc(char a, char b) {
     return stoi(_a)*stoi(_b) > 0 ? '+' : '-';
 }
 
-vector<string> Utils::splitBySigns(string op) {
+vector<string> Utils::getFullOp(string op) {
     vector<string> vct;
     unsigned int relStart = 0;
     unsigned int bracketCounter = 0;
@@ -220,7 +220,7 @@ long double Utils::calcOp(string fullop) {
     long double acumulator = 0;
     // We follow the operation priority () -> getNextNumber, *./ -> linearCalc, +-
     // -> calcOp
-    vector<string> vctOp = splitBySigns(fullop);
+    vector<string> vctOp = getFullOp(fullop);
     if (DEBUG) {
         cout << "[calcOp] vctOp -> "; 
         for (string str : vctOp) {
