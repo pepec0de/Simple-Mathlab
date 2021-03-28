@@ -18,4 +18,4 @@ TODO list:<br>
     - <strike>Code the brackets processor</strike>.<br>
     - <strike>Code a sign processor</strike>.<br> 
     - Implement different number format (like Matlab).<br>
-    - Comment all functions.<br>
+    - Implement error printing.<br>

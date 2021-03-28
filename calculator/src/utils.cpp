@@ -6,13 +6,7 @@ bool Utils::isSign(char c) {
 }
 
 bool Utils::isOperator(char c) {
-    switch(c) {
-        case '*':
-        case '/':
-            return true;
-            break;
-    }
-    return false;
+    return (c == '*') | (c == '/') | (c == '^');
 }
 
 bool Utils::isNumber(string str) {
@@ -176,6 +170,7 @@ long double Utils::operate(long double a, long double b, char cop) {
     switch(cop) {
         case '*': return a*b;
         case '/': return a/b;
+        case '^': return pow(a, b);
     }
     return 0;
 }

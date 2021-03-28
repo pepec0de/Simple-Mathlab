@@ -11,4 +11,5 @@ public:
 protected:
 private:
 };
+
 #endif // FUNCS_H
