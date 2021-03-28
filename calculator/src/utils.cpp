@@ -189,7 +189,7 @@ long double Utils::linearCalc(string op) {
         }
         cout << endl;
     }
-    if (vctOp.size() == 1) return stof(vctOp[0]);
+    if (vctOp.size() == 1) return calcOp(vctOp[0]);
     // Simple linear calc
     unsigned int step = 3; // default loop step
     for (unsigned int i = 0; i < vctOp.size(); i += step) {
